@@ -1,5 +1,17 @@
 #include <window.h>
 
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <optional>
+
+#define GLEW_STATIC
+#include <GL/glew.h>
+
+#include <GLFW/glfw3.h>
+
+#include <glm/glm.hpp>
+
 #pragma comment(lib, "OpenGL32.lib")
 #pragma comment(lib, "glew32s.lib")
 
@@ -9,7 +21,7 @@
 # pragma comment(lib, "glfw3-s.lib")
 #endif
 
-windowManager::windowManager()
+Window::Window(int32_t width /* = kDEFAULT_WIDTH */, int32_t height /* = kDEFAULT_HEIGHT */)
 {
 
 #pragma region GLFW INIT
@@ -17,21 +29,21 @@ windowManager::windowManager()
 
 	if (!glfwInit())
 	{
-		ErrorCallBack(1, "windowManager didn't openned properly.");
+		ErrorCallBack(1, "Window didn't openned properly.");
 		glfwTerminate();
 	}
 
 #pragma endregion
 
-#pragma region windowManager INIT
+#pragma region Window INIT
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4.5);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4.5);
 
-	m_window = glfwCreateWindow(WIDTH, HEIGHT, "Fractal", NULL, NULL);
+	m_window = glfwCreateWindow(width, height, "Fractal", NULL, NULL);
 
 	if (!m_window)
 	{
-		ErrorCallBack(2, "windowManager or OpenGL context creation failed.");
+		ErrorCallBack(2, "Window or OpenGL context creation failed.");
 		glfwTerminate();
 	}
 
@@ -88,21 +100,21 @@ windowManager::windowManager()
 
 	glProgramUniform2f(m_shader, 0, 1920.0f, 1080.0f);
 	//RUN TIME
-	windowRunTime();
+	DoFrame();
 }
 
-windowManager::~windowManager()
+Window::~Window()
 {
 	glfwDestroyWindow(m_window);
 }
 
-void windowManager::ErrorCallBack(int error, const char* description)
+void Window::ErrorCallBack(int error, const char* description)
 {
 	std::cout << stderr << "Error : " << description << std::endl;
 }
 
 #pragma region RunTime
-void windowManager::windowRunTime()
+void Window::DoFrame()
 {
 	while (!glfwWindowShouldClose(m_window))
 	{
@@ -110,7 +122,7 @@ void windowManager::windowRunTime()
 		FullScreenMode();
 
 		//Set inputs
-		glfwSetKeyCallback(m_window, key_callback);
+		glfwSetKeyCallback(m_window, s_KeyCallback);
 		//KeepRunning
 
 		//print GL_TRIANGLES in screen
@@ -122,13 +134,13 @@ void windowManager::windowRunTime()
 #pragma endregion
 
 
-void windowManager::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+void Window::s_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GLFW_TRUE);
 };
 
-void windowManager::FullScreenMode()
+void Window::FullScreenMode()
 {
 	m_monitor = glfwGetPrimaryMonitor();
 
@@ -141,7 +153,7 @@ void windowManager::FullScreenMode()
 	}
 }
 
-void windowManager::PrintScreen()
+void Window::PrintScreen()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 
@@ -159,7 +171,7 @@ void windowManager::PrintScreen()
 	glfwPollEvents();
 }
 
-unsigned int windowManager::CreateShader(const std::string& vertexShader, const std::string& fragmentShader)
+unsigned int Window::CreateShader(const std::string& vertexShader, const std::string& fragmentShader)
 {
 	unsigned int program = glCreateProgram();
 
@@ -177,7 +189,7 @@ unsigned int windowManager::CreateShader(const std::string& vertexShader, const 
 	return program;
 }
 
-unsigned int windowManager::CompileShader(unsigned int type, const std::string& source)
+unsigned int Window::CompileShader(unsigned int type, const std::string& source)
 {
 	unsigned int id = glCreateShader(type);
 	const char* src = source.c_str();
@@ -203,7 +215,7 @@ unsigned int windowManager::CompileShader(unsigned int type, const std::string& 
 	return id;
 }
 
-void windowManager::ReadAndWrite_Shader(const char* vertexPath, const char* fragmentPath)
+void Window::ReadAndWrite_Shader(const char* vertexPath, const char* fragmentPath)
 {
 	std::string vertexCode;
 	std::string fragmentCode;
@@ -238,7 +250,7 @@ void windowManager::ReadAndWrite_Shader(const char* vertexPath, const char* frag
 	m_fragmentShader = fragmentCode.c_str();
 }
 
-void windowManager::CameraManager()
+void Window::CameraManager()
 {
 	glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 

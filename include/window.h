@@ -1,42 +1,30 @@
-#pragma once
+#ifndef REVISION2023__WINDOW_H
+#define REVISION2023__WINDOW_H
 
-#include <iostream>
+#include <cstdint>
 #include <string>
-#include <fstream>
-#include <sstream>
-#include <optional>
 
+struct GLFWwindow;
+struct GLFWmonitor;
 
-//GLEW
-#define GLEW_STATIC
-#include <GL/glew.h>
-
-//GLFW
-#include <GLFW/glfw3.h>
-
-#include <glm/glm.hpp>
-
-class windowManager
+class Window
 {
-	GLFWwindow* m_window = NULL;
-	GLFWmonitor* m_monitor = NULL;
+	GLFWwindow*  m_window  = nullptr;
+	GLFWmonitor* m_monitor = nullptr;
 
 	uint32_t vao;
 	uint32_t vertexBuffer;
 
 	float positions[6];
 
-	std::string m_vertexShader = "";
+	std::string m_vertexShader   = "";
 	std::string m_fragmentShader = "";
 
-	unsigned int m_shader = 0;
-	unsigned int m_buffer = 0;
-
+	uint32_t m_shader = 0;
+	uint32_t m_buffer = 0;
 
 	static unsigned int CreateShader(const std::string& vertexShader, const std::string& fragmentShader);
 	static unsigned int CompileShader(unsigned int type, const std::string& source);
-
-	const GLint WIDTH = 800, HEIGHT = 600;
 
 	void ErrorCallBack(int error, const char* description);
 	void ReadAndWrite_Shader(const char* vertexPath, const char* fragmentPath);
@@ -45,12 +33,16 @@ class windowManager
 
 	void CameraManager();
 
+	static void s_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
-	static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+public:	
+	static const int32_t kDEFAULT_WIDTH  = 800,
+	                     kDEFAULT_HEIGHT = 600;
 
-public:
-	explicit windowManager();
-	~windowManager();
+	explicit Window(int32_t width = kDEFAULT_WIDTH, int32_t height = kDEFAULT_HEIGHT);
+	~Window();
 
-	void windowRunTime();
+	void DoFrame();
 };
+
+#endif /* REVISION2023__WINDOW_H */
