@@ -6,11 +6,12 @@ int main(int argc, char** argv)
 {
 	Window window;
 	Renderer renderer(window);
+	SoundTrack::PlayMusic("Audio/test.mp3");
 
 	do
 	{
 		renderer.Render();
-		SoundTrack::PlayMusic("Audio/test.mp3");
+
 	} while (window.SwapBuffers());
 
 	return 0;
