@@ -145,10 +145,12 @@
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\renderer.cpp" />
+    <ClCompile Include="src\soundTrack.cpp" />
     <ClCompile Include="src\window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\renderer.h" />
+    <ClInclude Include="include\soundTrack.h" />
     <ClInclude Include="include\window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
