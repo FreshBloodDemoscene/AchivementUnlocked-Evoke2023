@@ -42,7 +42,7 @@ Renderer::Renderer(const Window& window)
 
 
 	//READ SHADER FILE AND LOAD IT IN SHADER RENDERER
-	ReadAndWrite_Shader("../Shader.vs", "../Shader.fs");
+	ReadAndWrite_Shader("ShaderFiles/Shader.vs", "ShaderFiles/Shader.fs");
 	m_shader = CreateShader(m_vertexShader, m_fragmentShader);
 	glUseProgram(m_shader);
 
