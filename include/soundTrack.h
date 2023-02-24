@@ -1,8 +1,7 @@
-#ifndef REVISION2023__SoundTrack_H_
-#define REVISION2023__SoundTrack_H_
+#ifndef REVISION2023__SoundTrack_H
+#define REVISION2023__SoundTrack_H
 
 #include <iostream>
-
 
 class SoundTrack
 {
@@ -14,7 +13,7 @@ public:
 	static void* getFile(std::string* file);
 };
 
-#endif // !REVISION2023__SoundTrack_H_
+#endif // !REVISION2023__SoundTrack_H
 
 
 

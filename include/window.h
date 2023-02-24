@@ -15,7 +15,7 @@ class Window final
 	GLFWmonitor* m_monitor = nullptr;
 	glm::ivec2   m_size;
 
-	void FullScreenMode();
+	static void FullScreenMode(GLFWwindow* window);
 
 	void ErrorCallBack(int error, const char* description);
 

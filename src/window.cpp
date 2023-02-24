@@ -79,18 +79,23 @@ void Window::s_KeyCallback(GLFWwindow* window, int key, int scancode, int action
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GLFW_TRUE);
+
+	if (key == GLFW_KEY_F11 && action == GLFW_PRESS)
+		FullScreenMode(window);
 };
 
-void Window::FullScreenMode()
+void Window::FullScreenMode(GLFWwindow* window)
 {
-	m_monitor = glfwGetPrimaryMonitor();
+	GLFWmonitor* temp_monitor;
 
-	if (m_monitor != NULL)
+	temp_monitor = glfwGetPrimaryMonitor();
+
+	if (temp_monitor != NULL)
 	{
-		const GLFWvidmode* mode = glfwGetVideoMode(m_monitor);
+		const GLFWvidmode* mode = glfwGetVideoMode(temp_monitor);
 
-		glfwSetWindowMonitor(m_window, m_monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
-		glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+		glfwSetWindowMonitor(window, temp_monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 	}
 }
 
