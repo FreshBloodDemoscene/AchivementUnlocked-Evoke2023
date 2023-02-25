@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{9dc645d2-3fb0-49f1-acd5-8a9375be614b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -38,5 +41,13 @@
     <ClInclude Include="include\soundTrack.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ShaderFiles\Shader.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="ShaderFiles\Shader.vs">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
