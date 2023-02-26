@@ -95,6 +95,7 @@ void Window::FullScreenMode(GLFWwindow* window)
 		const GLFWvidmode* mode = glfwGetVideoMode(temp_monitor);
 
 		glfwSetWindowMonitor(window, temp_monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
+		glViewport(0, 0, mode->width, mode->height);
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 	}
 }

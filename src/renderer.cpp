@@ -146,11 +146,3 @@ void Renderer::ReadAndWrite_Shader(const char* vertexPath, const char* fragmentP
 	m_vertexShader = vertexCode.c_str();
 	m_fragmentShader = fragmentCode.c_str();
 }
-
-void Renderer::CameraManager()
-{
-	glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-
-	glm::vec3 cameraTarget = glm::vec3(0.0f);
-	glm::vec3 cameraDirection = glm::normalize(cameraPos - cameraTarget);
-}
