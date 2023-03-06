@@ -61,7 +61,9 @@ void Renderer::Render()
 	float timeValue = glfwGetTime();
 	float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
 	int vertexColorLocation = glGetUniformLocation(m_shader, "ourColor");
+
 	glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
+
 
 	glBindVertexArray(vao);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);

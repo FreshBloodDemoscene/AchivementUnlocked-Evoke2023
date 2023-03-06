@@ -47,7 +47,6 @@ void File::UpdateFile(Renderer& render, Window& window)
 		render.ReadAndWrite_Shader("ShaderFiles/Shader.vs", "ShaderFiles/Shader.fs");
 		render.m_shader = Renderer::CreateShader(render.m_vertexShader, render.m_fragmentShader);
 		glUseProgram(render.m_shader);
-
 		glProgramUniform2f(render.m_shader, 0, float(window.Size().x), float(window.Size().y));
 	}
 	break;
@@ -56,6 +55,7 @@ void File::UpdateFile(Renderer& render, Window& window)
 	default:
 		break;
 	}
+	glProgramUniform1f(render.m_shader, 1, (float)glfwGetTime());
 }
 
 

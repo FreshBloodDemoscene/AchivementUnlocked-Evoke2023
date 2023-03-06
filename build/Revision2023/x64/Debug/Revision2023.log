@@ -1,2 +1,21 @@
-﻿  main.cpp
+﻿  file.cpp
+sync-s-d.lib(device-c-8076f882bf60486028ccb28c74e662f5.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'sync-s-d.lib(device-c-8076f882bf60486028ccb28c74e662f5.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+sync-s-d.lib(track-c-4b658b68bf604860e37191ad74e662f5.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'sync-s-d.lib(track-c-4b658b68bf604860e37191ad74e662f5.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+glew32s.lib(glew.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'glew32s.lib(glew.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(input.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'glfw3-s-d.lib(input.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(init.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'glfw3-s-d.lib(init.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(monitor.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'glfw3-s-d.lib(monitor.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(window.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'glfw3-s-d.lib(window.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(context.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'glfw3-s-d.lib(context.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(win32_window.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'glfw3-s-d.lib(win32_window.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(win32_joystick.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'glfw3-s-d.lib(win32_joystick.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(win32_time.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'glfw3-s-d.lib(win32_time.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(win32_init.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'glfw3-s-d.lib(win32_init.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(win32_monitor.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'glfw3-s-d.lib(win32_monitor.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(win32_thread.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'glfw3-s-d.lib(win32_thread.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(vulkan.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'glfw3-s-d.lib(vulkan.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(wgl_context.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'glfw3-s-d.lib(wgl_context.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(egl_context.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'glfw3-s-d.lib(egl_context.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(osmesa_context.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'glfw3-s-d.lib(osmesa_context.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+MSVCRTD.lib(initializers.obj) : warning LNK4098: conflit entre la bibliothèque par défaut 'libcmt.lib' et les autres bibliothèques ; utilisez /NODEFAULTLIB:library
   Revision2023.vcxproj -> C:\Users\qriga\OneDrive - La Horde\Documents\GitHub\revision-2023-demo\bin\Revision2023_Debug.exe

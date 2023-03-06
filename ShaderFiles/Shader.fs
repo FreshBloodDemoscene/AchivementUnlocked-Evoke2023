@@ -1,13 +1,141 @@
-#version 440 core
+#version 460 core
 out vec4 FragColor;
 
 layout(location = 0) uniform vec2 uScreenResolution;
+layout(location = 1) uniform float uTime;
 
-in vec2 vPos;
+const int MAX_MARCHING_STEPS = 255;
+const float MIN_DISTANCE = 0.0;
+const float MAX_DISTANCE = 100.0;
+const float PRECISION = 0.001;
+const vec3 LIGHT_COLOR = vec3(1., 0.58, 0.29);
+const vec3 MaterialAmbiantColor = vec3(0.1,0.1,0.1);
+
+vec2 rotate(vec2 p, float a)
+{
+    float c = cos(a);
+    float s = sin(a);
+    return vec2(p.x * c - p.y * s, p.x * s + p.y * c);
+}
+
+vec3 rotateX(vec3 p, float a) 
+{
+    p.yz = rotate(p.yz, a);
+    return p;
+}
+
+vec3 rotateY(vec3 p, float a) 
+{
+    p.xz = rotate(p.xz, a);
+    return p;
+}
+
+vec3 rotateZ(vec3 p, float a) 
+{
+    p.xy = rotate(p.xy, a);
+    return p;
+}
+
+float sdSphere(vec3 p, float r)
+{
+    vec3 offset = vec3(0,0,-2);
+    return length(p - offset) - r;
+}
+
+float sdBox(vec3 p, vec3 b)
+{
+    vec3 q = abs(p) - b;
+    return length(max(q, 0.0)) + min(max(q.x, max(q.y, q.z)), 0.0);
+}
+
+float sdFloor(vec3 p)
+{
+    return p.y + sin(p.x * 10) * 0.1;
+}
+
+float map(vec3 p)
+{
+    float sphere = sdSphere(p, 1.);
+
+    vec3 pp = rotateX(rotateY(rotateZ(p-vec3(0.0, 2.0, 0.0), uTime), uTime), uTime);
+    float box = sdBox(pp, vec3(0.5));
+    float sol = sdFloor(p);
+
+    float trouSphere = max(sol, -sphere);
+    return min(box, trouSphere);
+}
+
+vec3 calcNormal(vec3 p)
+{
+    vec2 e = vec2(PRECISION, 0.);
+    return normalize(vec3(
+        map(p + e.xyy) - map(p - e.xyy),
+        map(p + e.yxy) - map(p - e.yxy),
+        map(p + e.yyx) - map(p - e.yyx)
+    ));
+}
+
+float rayMarch(vec3 ro, vec3 rd, float start, float end)
+{
+    float depth = start;
+
+    for(int i = 0; i < MAX_MARCHING_STEPS; i++)
+    {
+        vec3 p = ro + depth * rd;
+        float d = map(p);
+        depth += d;
+
+        if(d < PRECISION || depth > end)break;
+    }
+    return depth;
+}
+
+
+
+void mainImage(out vec4 fragColor, in vec2 fragCoord)
+{
+    vec2 uv = fragCoord / uScreenResolution;
+    uv = uv * 2. - 1.;
+    uv.x *= uScreenResolution.x / uScreenResolution.y;
+
+    vec3 MaterialDifuseColor = vec3(0);
+    float specularIntensity = 0.;
+
+
+    float LightPower = 60.;
+    float shininess = 40.;
+
+    vec3 ro = vec3(0,1,4);
+    vec3 rd = normalize(vec3(uv, -1.));
+
+    float d = rayMarch(ro, rd, MIN_DISTANCE, MAX_DISTANCE);
+    if(d > MAX_DISTANCE)
+    {
+        MaterialDifuseColor = vec3(0.0, 1, 1);
+    }else
+    {
+        vec3 p = ro + d * rd;
+        vec3 n = calcNormal(p);
+        vec3 lightPosition = vec3(2,2,7);
+        vec3 L = normalize(lightPosition - p);
+
+        vec3 V = normalize(ro - p);
+        vec3 H = normalize(L + V);
+
+        float NoH = clamp(dot(n, H), 0., 1.);
+        float NoL = clamp(dot(n, L), 0., 1.);
+
+        specularIntensity = pow(clamp(NoH, 0., 1.), shininess);
+
+        MaterialDifuseColor = NoL * LIGHT_COLOR;
+
+    }
+    
+    fragColor = vec4(MaterialAmbiantColor + MaterialDifuseColor + vec3(specularIntensity), 1.0);
+}
 
 void main()
 {
-    float ratio = uScreenResolution.x / uScreenResolution.y;
-    vec2 pos = vPos * vec2(ratio, 1.0);
-    FragColor = vec4(1.0-step(0.5, distance(pos, vec2(0.0))), 0.0, 0.0, 1.0);
-} 
+    mainImage(FragColor, gl_FragCoord.xy);
+}
+

@@ -15,14 +15,14 @@ int main(int argc, char** argv)
 	Renderer renderer(window);
 
 	
-	s.PlayMusic("Audio/test.mp3");
+	s.PlayMusic("Audio/revision.wav");
 
 
 	do
 	{
 		float f = syncTracker.FetchValue("test");
 
-		std::cout << f << std::endl;
+		//std::cout << f << std::endl;
 		syncTracker.Update(s);
 		renderer.Render();
 		file.UpdateFile(renderer, window);
