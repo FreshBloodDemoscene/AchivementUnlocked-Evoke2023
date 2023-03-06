@@ -14,6 +14,12 @@ const float PRECISION = 0.001;
 const vec3 LIGHT_COLOR = vec3(1., 0.58, 0.29);
 const vec3 MaterialAmbiantColor = vec3(0.1,0.1,0.1);
 
+vec2 dmMod2(vec2 p, vec2 s) 
+{
+    vec2 h = s * 0.5;
+    return mod(p + h, s) - h;
+}
+
 vec2 rotate(vec2 p, float a)
 {
     float c = cos(a);
@@ -60,7 +66,11 @@ float map(vec3 p)
 {
     float sphere = sdSphere(p, 1.);
 
-    vec3 pp = rotateX(rotateY(rotateZ(p-vec3(0.0, 2.0, 0.0), uTime), uTime), uTime);
+    vec3 p2 = p;
+    p2.xz = dmMod2(p2.xz, vec2(2.0));
+
+    vec3 pp = rotateX(rotateY(rotateZ(p2-vec3(0.0, 2.0, 0.0), uTime), uTime), uTime);
+
     float box = sdBox(pp, vec3(0.5));
     float sol = sdFloor(p);
 
