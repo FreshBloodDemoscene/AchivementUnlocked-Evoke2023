@@ -19,8 +19,6 @@
 Window::Window(const glm::ivec2& size /* = glm::ivec2(kDEFAULT_WIDTH, kDEFAULT_HEIGHT) */)
 	: m_size(size)
 {
-	glfwInit();
-
 	if (!glfwInit())
 	{
 		ErrorCallBack(1, "Window didn't openned properly.");

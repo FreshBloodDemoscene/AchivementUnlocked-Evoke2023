@@ -19,7 +19,7 @@ public:
     explicit File();
     ~File() noexcept;
 
-    void UpdateFile(Renderer& render, Window& window);
+    void UpdateFile(Renderer& render, Window& window, float t);
 
 
     void CheckModification();

@@ -3,6 +3,9 @@ out vec4 FragColor;
 
 layout(location = 0) uniform vec2 uScreenResolution;
 layout(location = 1) uniform float uTime;
+layout(location = 2) uniform vec3 ro;
+layout(location = 3) uniform mat4 uViewMatrix;
+
 
 const int MAX_MARCHING_STEPS = 255;
 const float MIN_DISTANCE = 0.0;
@@ -105,8 +108,10 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
     float LightPower = 60.;
     float shininess = 40.;
 
-    vec3 ro = vec3(0,1,4);
     vec3 rd = normalize(vec3(uv, -1.));
+
+    vec3 ro = (uViewMatrix * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
+    rd = (uViewMatrix * vec4(rd, 0.0)).xyz;
 
     float d = rayMarch(ro, rd, MIN_DISTANCE, MAX_DISTANCE);
     if(d > MAX_DISTANCE)

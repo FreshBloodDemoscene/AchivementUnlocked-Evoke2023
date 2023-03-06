@@ -10,6 +10,7 @@ File::File()
 {
 	fs_changed = std::filesystem::last_write_time(fragment_shader_file);
 	vs_changed = std::filesystem::last_write_time(vertex_shader_file);
+
 }
 
 File::~File() noexcept
@@ -36,7 +37,7 @@ void File::CheckModification()
 
 }
 
-void File::UpdateFile(Renderer& render, Window& window)
+void File::UpdateFile(Renderer& render, Window& window, float t)
 {
 	CheckModification();
 
@@ -55,7 +56,7 @@ void File::UpdateFile(Renderer& render, Window& window)
 	default:
 		break;
 	}
-	glProgramUniform1f(render.m_shader, 1, (float)glfwGetTime());
+	glProgramUniform1f(render.m_shader, 1, t);
 }
 
 

@@ -1,4 +1,6 @@
 ﻿  file.cpp
+  main.cpp
+  Génération de code en cours...
 sync-s-d.lib(device-c-8076f882bf60486028ccb28c74e662f5.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'sync-s-d.lib(device-c-8076f882bf60486028ccb28c74e662f5.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
 sync-s-d.lib(track-c-4b658b68bf604860e37191ad74e662f5.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'sync-s-d.lib(track-c-4b658b68bf604860e37191ad74e662f5.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
 glew32s.lib(glew.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'glew32s.lib(glew.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
