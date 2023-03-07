@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rootElement>
+	<group name="origin:" />
+	<group name="target:" />
 <tracks rows="10000" startRow="0" endRow="10000" rowsPerBeat="8"
-beatsPerMin="125">
+beatsPerMin="100">
 	<track name="origin:X" folded="0" muteKeyCount="0"
 color="ffb27474">
 		<key row="0" value="5.000000" interpolation="2" />
@@ -25,7 +27,8 @@ color="ffa9b250">
 	<track name="target:X" folded="0" muteKeyCount="0"
 color="ff60b250">
 		<key row="0" value="0.000000" interpolation="2" />
-		<key row="48" value="10.000000" interpolation="0" />
+		<key row="48" value="10.000000" interpolation="2" />
+		<key row="100" value="0.000000" interpolation="0" />
 	</track>
 	<track name="target:Y" folded="0" muteKeyCount="0"
 color="ff4fb292">
@@ -46,8 +49,8 @@ color="ff8850b2">
 	</track>
 	<track name="color:Y" folded="0" muteKeyCount="0"
 color="ffb25091">
-		<key row="0" value="0.000000" interpolation="2" />
-		<key row="32" value="0.000000" interpolation="2" />
+		<key row="0" value="0.000000" interpolation="3" />
+		<key row="32" value="0.000000" interpolation="3" />
 		<key row="64" value="0.000000" interpolation="2" />
 		<key row="86" value="1.000000" interpolation="2" />
 		<key row="100" value="1.000000" interpolation="2" />
@@ -61,6 +64,32 @@ color="ffb27474">
 		<key row="86" value="0.000000" interpolation="2" />
 		<key row="100" value="1.000000" interpolation="2" />
 		<key row="128" value="0.000000" interpolation="0" />
+	</track>
+	<track name="lightPosition:X" folded="0" muteKeyCount="0"
+color="ffa9b250">
+		<key row="0" value="0.000000" interpolation="0" />
+		<key row="63" value="1.000000" interpolation="0" />
+		<key row="128" value="0.000000" interpolation="0" />
+	</track>
+	<track name="lightPosition:Y" folded="0" muteKeyCount="0"
+color="ff60b250">
+		<key row="0" value="0.000000" interpolation="0" />
+		<key row="63" value="1.000000" interpolation="0" />
+		<key row="128" value="0.000000" interpolation="0" />
+	</track>
+	<track name="lightPosition:Z" folded="0" muteKeyCount="0"
+color="ff4fb292">
+		<key row="0" value="0.000000" interpolation="0" />
+		<key row="63" value="1.000000" interpolation="0" />
+		<key row="128" value="0.000000" interpolation="0" />
+	</track>
+	<track name="fullSquare" folded="0" muteKeyCount="0"
+color="ffb28050">
+		<key row="0" value="1.000000" interpolation="0" />
+		<key row="32" value="0.000000" interpolation="0" />
+		<key row="34" value="1.000000" interpolation="0" />
+		<key row="35" value="0.000000" interpolation="2" />
+		<key row="63" value="1.000000" interpolation="0" />
 	</track>
 </tracks>
 	</rootElement>

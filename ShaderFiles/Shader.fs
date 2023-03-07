@@ -6,6 +6,8 @@ layout(location = 1) uniform float uTime;
 layout(location = 2) uniform vec3 ro;
 layout(location = 3) uniform mat4 uViewMatrix;
 layout(location = 4) uniform vec3 LIGHT_COLOR;
+layout(location = 5) uniform vec3 LIGHT_POSITION;
+layout(location = 6) uniform int fullSquare;
 
 
 const int MAX_MARCHING_STEPS = 255;
@@ -13,6 +15,7 @@ const float MIN_DISTANCE = 0.0;
 const float MAX_DISTANCE = 100.0;
 const float PRECISION = 0.001;
 const vec3 MaterialAmbiantColor = vec3(0.1,0.1,0.1);
+float box;
 
 vec2 dmMod2(vec2 p, vec2 s) 
 {
@@ -67,11 +70,22 @@ float map(vec3 p)
     float sphere = sdSphere(p, 1.);
 
     vec3 p2 = p;
+    
     p2.xz = dmMod2(p2.xz, vec2(2.0));
 
     vec3 pp = rotateX(rotateY(rotateZ(p2-vec3(0.0, 2.0, 0.0), uTime), uTime), uTime);
 
-    float box = sdBox(pp, vec3(0.5));
+    if(fullSquare == 0)
+    {
+        box = sdBox(p, vec3(0.5));
+    }
+    else
+    {
+        box = sdBox(pp, vec3(0.5));
+    }
+
+
+    
     float sol = sdFloor(p);
 
     float trouSphere = max(sol, -sphere);
@@ -131,8 +145,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
     {
         vec3 p = ro + d * rd;
         vec3 n = calcNormal(p);
-        vec3 lightPosition = vec3(2,2,7);
-        vec3 L = normalize(lightPosition - p);
+        vec3 L = normalize(LIGHT_POSITION - p);
 
         vec3 V = normalize(ro - p);
         vec3 H = normalize(L + V);

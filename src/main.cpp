@@ -23,10 +23,13 @@ int main(int argc, char** argv)
 	
 	s.PlayMusic("Audio/revision.wav");
 
-	glm::vec3 ro = glm::vec3(0.0f, 1.0f, 4.0f);
 	glm::vec3 origin, target;
 
 	glm::vec3 color = glm::vec3(1.0f, 0.0f, 0.0f);
+	glm::vec3 light_Position(2, 2, 7);
+
+
+	int fullSquare = 0;
 ;
 	do
 	{
@@ -46,6 +49,16 @@ int main(int argc, char** argv)
 		color.z = syncTracker.FetchValue("color:Z");
 
 		glProgramUniform3f(renderer.m_shader, 4, color.x, color.y, color.z);
+
+		light_Position.x = syncTracker.FetchValue("lightPosition:X");
+		light_Position.y = syncTracker.FetchValue("lightPosition:Y");
+		light_Position.z = syncTracker.FetchValue("lightPosition:Z");
+
+		glProgramUniform3f(renderer.m_shader, 5, light_Position.x, light_Position.y, light_Position.z);
+
+		fullSquare = syncTracker.FetchValue("fullSquare");
+
+		glProgramUniform1i(renderer.m_shader, 6, fullSquare);
 
 		//std::cout << ro.x << ro.y << ro.z << std::endl;
 		syncTracker.Update(s);
