@@ -5,13 +5,13 @@ layout(location = 0) uniform vec2 uScreenResolution;
 layout(location = 1) uniform float uTime;
 layout(location = 2) uniform vec3 ro;
 layout(location = 3) uniform mat4 uViewMatrix;
+layout(location = 4) uniform vec3 LIGHT_COLOR;
 
 
 const int MAX_MARCHING_STEPS = 255;
 const float MIN_DISTANCE = 0.0;
 const float MAX_DISTANCE = 100.0;
 const float PRECISION = 0.001;
-const vec3 LIGHT_COLOR = vec3(1., 0.58, 0.29);
 const vec3 MaterialAmbiantColor = vec3(0.1,0.1,0.1);
 
 vec2 dmMod2(vec2 p, vec2 s) 
@@ -126,7 +126,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
     float d = rayMarch(ro, rd, MIN_DISTANCE, MAX_DISTANCE);
     if(d > MAX_DISTANCE)
     {
-        MaterialDifuseColor = vec3(0.0, 1, 1);
+        MaterialDifuseColor = vec3(0.0f);
     }else
     {
         vec3 p = ro + d * rd;

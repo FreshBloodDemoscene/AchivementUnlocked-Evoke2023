@@ -23,10 +23,44 @@ color="ffa9b250">
 		<key row="112" value="5.000000" interpolation="2" />
 	</track>
 	<track name="target:X" folded="0" muteKeyCount="0"
-color="ff60b250" />
+color="ff60b250">
+		<key row="0" value="0.000000" interpolation="2" />
+		<key row="48" value="10.000000" interpolation="0" />
+	</track>
 	<track name="target:Y" folded="0" muteKeyCount="0"
-color="ff4fb292" />
+color="ff4fb292">
+		<key row="0" value="0.000000" interpolation="2" />
+		<key row="48" value="10.000000" interpolation="2" />
+		<key row="100" value="0.000000" interpolation="0" />
+	</track>
 	<track name="target:Z" folded="0" muteKeyCount="0"
 color="ff4f71b2" />
+	<track name="color:X" folded="0" muteKeyCount="0"
+color="ff8850b2">
+		<key row="0" value="1.000000" interpolation="2" />
+		<key row="32" value="0.000000" interpolation="2" />
+		<key row="64" value="0.000000" interpolation="2" />
+		<key row="86" value="0.000000" interpolation="2" />
+		<key row="100" value="1.000000" interpolation="2" />
+		<key row="128" value="0.000000" interpolation="0" />
+	</track>
+	<track name="color:Y" folded="0" muteKeyCount="0"
+color="ffb25091">
+		<key row="0" value="0.000000" interpolation="2" />
+		<key row="32" value="0.000000" interpolation="2" />
+		<key row="64" value="0.000000" interpolation="2" />
+		<key row="86" value="1.000000" interpolation="2" />
+		<key row="100" value="1.000000" interpolation="2" />
+		<key row="128" value="0.000000" interpolation="0" />
+	</track>
+	<track name="color:Z" folded="0" muteKeyCount="0"
+color="ffb27474">
+		<key row="0" value="0.000000" interpolation="2" />
+		<key row="32" value="0.000000" interpolation="2" />
+		<key row="64" value="1.000000" interpolation="2" />
+		<key row="86" value="0.000000" interpolation="2" />
+		<key row="100" value="1.000000" interpolation="2" />
+		<key row="128" value="0.000000" interpolation="0" />
+	</track>
 </tracks>
 	</rootElement>

@@ -25,6 +25,8 @@ int main(int argc, char** argv)
 
 	glm::vec3 ro = glm::vec3(0.0f, 1.0f, 4.0f);
 	glm::vec3 origin, target;
+
+	glm::vec3 color = glm::vec3(1.0f, 0.0f, 0.0f);
 ;
 	do
 	{
@@ -38,7 +40,13 @@ int main(int argc, char** argv)
 
 		glm::mat4 viewMatrix = glm::inverse(glm::lookAt(origin, target, glm::vec3(0.0, 1.0, 0.0)));
 		glProgramUniformMatrix4fv(renderer.m_shader, 3, 1, false, &viewMatrix[0][0]);
-		
+
+		color.x = syncTracker.FetchValue("color:X");
+		color.y = syncTracker.FetchValue("color:Y");
+		color.z = syncTracker.FetchValue("color:Z");
+
+		glProgramUniform3f(renderer.m_shader, 4, color.x, color.y, color.z);
+
 		//std::cout << ro.x << ro.y << ro.z << std::endl;
 		syncTracker.Update(s);
 		renderer.Render();
