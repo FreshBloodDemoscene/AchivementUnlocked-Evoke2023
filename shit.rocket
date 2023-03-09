@@ -87,9 +87,18 @@ color="ff4fb292">
 color="ffb28050">
 		<key row="0" value="1.000000" interpolation="0" />
 		<key row="32" value="0.000000" interpolation="0" />
-		<key row="34" value="1.000000" interpolation="0" />
-		<key row="35" value="0.000000" interpolation="2" />
 		<key row="63" value="1.000000" interpolation="0" />
+		<key row="64" value="0.000000" interpolation="0" />
+		<key row="65" value="1.000000" interpolation="0" />
+		<key row="66" value="0.000000" interpolation="0" />
+		<key row="67" value="1.000000" interpolation="0" />
+		<key row="68" value="0.000000" interpolation="0" />
+		<key row="69" value="1.000000" interpolation="0" />
+		<key row="70" value="0.000000" interpolation="0" />
+		<key row="71" value="1.000000" interpolation="0" />
+		<key row="86" value="0.000000" interpolation="0" />
+		<key row="100" value="1.000000" interpolation="0" />
+		<key row="128" value="0.000000" interpolation="0" />
 	</track>
 </tracks>
 	</rootElement>

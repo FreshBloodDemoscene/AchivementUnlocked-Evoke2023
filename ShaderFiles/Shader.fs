@@ -6,8 +6,7 @@ layout(location = 1) uniform float uTime;
 layout(location = 2) uniform vec3 ro;
 layout(location = 3) uniform mat4 uViewMatrix;
 layout(location = 4) uniform vec3 LIGHT_COLOR;
-layout(location = 5) uniform vec3 LIGHT_POSITION;
-layout(location = 6) uniform int fullSquare;
+layout(location = 5) uniform int fullSquare;
 
 
 const int MAX_MARCHING_STEPS = 255;
@@ -15,12 +14,21 @@ const float MIN_DISTANCE = 0.0;
 const float MAX_DISTANCE = 100.0;
 const float PRECISION = 0.001;
 const vec3 MaterialAmbiantColor = vec3(0.1,0.1,0.1);
+
+vec3 LIGHT_POSITION;
 float box;
 
-vec2 dmMod2(vec2 p, vec2 s) 
+//vec2 dmMod2(vec2 p, vec2 s) 
+//{
+//    vec2 h = s * 0.5;
+//    return mod(p + h, s) - h;
+//}
+
+vec2 pMod2(inout vec2 p, vec2 size)
 {
-    vec2 h = s * 0.5;
-    return mod(p + h, s) - h;
+	vec2 c = floor((p + size*0.5)/size);
+	p = mod(p + size*0.5,size) - size*0.5;
+	return c;
 }
 
 vec2 rotate(vec2 p, float a)
@@ -68,12 +76,13 @@ float sdFloor(vec3 p)
 float map(vec3 p)
 {
     float sphere = sdSphere(p, 1.);
-
+     
     vec3 p2 = p;
     
-    p2.xz = dmMod2(p2.xz, vec2(2.0));
+    vec2 cellSize = vec2(2.0);
+    vec2 cellId = pMod2(p2.xz, cellSize);
 
-    vec3 pp = rotateX(rotateY(rotateZ(p2-vec3(0.0, 2.0, 0.0), uTime), uTime), uTime);
+    vec3 pp = rotateX(rotateY(rotateZ(p2-vec3(0.0, 2.0 + fract(0.5 * cellId.x), 0.0), uTime), uTime), uTime);
 
     if(fullSquare == 0)
     {
@@ -83,8 +92,10 @@ float map(vec3 p)
     {
         box = sdBox(pp, vec3(0.5));
     }
+    
+    LIGHT_POSITION = vec3(cellSize * vec2(4., 1.), 5.0).xzy;
 
-
+    
     
     float sol = sdFloor(p);
 
