@@ -12,7 +12,7 @@ layout(location = 5) uniform int fullSquare;
 const int MAX_MARCHING_STEPS = 255;
 const float MIN_DISTANCE = 0.0;
 const float MAX_DISTANCE = 100.0;
-const float PRECISION = 0.001;
+const float EPSILON = 0.001;
 const vec3 MaterialAmbiantColor = vec3(0.1,0.1,0.1);
 
 vec3 LIGHT_POSITION;
@@ -105,7 +105,7 @@ float map(vec3 p)
 
 vec3 calcNormal(vec3 p)
 {
-    vec2 e = vec2(PRECISION, 0.);
+    vec2 e = vec2(EPSILON, 0.);
     return normalize(vec3(
         map(p + e.xyy) - map(p - e.xyy),
         map(p + e.yxy) - map(p - e.yxy),
@@ -123,12 +123,25 @@ float rayMarch(vec3 ro, vec3 rd, float start, float end)
         float d = map(p);
         depth += d;
 
-        if(d < PRECISION || depth > end)break;
+        if(d < EPSILON || depth > end)break;
     }
     return depth;
 }
 
-
+float softshadow( in vec3 ro, in vec3 rd, float mint, float maxt, float k )
+{
+    float res = 1.0;
+    float t = mint;
+    for(int i = 0; i < 256 && t < maxt; i++ )
+    {
+        float h = map(ro + rd*t);
+        if( h<0.001 )
+            return 0.0;
+        res = min( res, k*h/t );
+        t += h;
+    }
+    return res;
+}
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord)
 {
@@ -139,6 +152,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
     vec3 MaterialDifuseColor = vec3(0);
     float specularIntensity = 0.;
 
+     vec3 col = vec3(0.0);
 
     float LightPower = 60.;
     float shininess = 40.;
@@ -168,9 +182,12 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
 
         MaterialDifuseColor = NoL * LIGHT_COLOR;
 
-    }
+        float shadow = softshadow(p + n * EPSILON * 10.0, L, 0.0, 10.0, 10.0);
+        col = (MaterialDifuseColor + vec3(specularIntensity)) * shadow;
+
+    } 
     
-    fragColor = vec4(MaterialAmbiantColor + MaterialDifuseColor + vec3(specularIntensity), 1.0);
+    fragColor = vec4(col, 1.0);
 }
 
 void main()
