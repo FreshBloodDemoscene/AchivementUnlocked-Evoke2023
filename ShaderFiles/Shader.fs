@@ -70,7 +70,20 @@ float sdBox(vec3 p, vec3 b)
 
 float sdFloor(vec3 p)
 {
-    return p.y + sin(p.x * 10) * 0.1;
+    return p.y;// + sin(p.x * 10) * 0.1;
+}
+
+float sdSegment(vec3 p, vec3 a, vec3 b)
+{
+    vec3 ab = b - a;
+    float t = clamp(dot(p - a, ab) / dot(ab, ab), 0.0, 1.0);
+    return length((ab*t + a) - p);
+}
+
+float mapLight(vec3 p)
+{
+    float ray = sdSegment(p, vec3(0),vec3(5)) - 0.2;
+    return ray;
 }
 
 float map(vec3 p)
@@ -95,12 +108,12 @@ float map(vec3 p)
     
     LIGHT_POSITION = vec3(cellSize * vec2(4., 1.), 5.0).xzy;
 
-    
+    float ray = sdSegment(p, vec3(0),vec3(5));
     
     float sol = sdFloor(p);
 
     float trouSphere = max(sol, -sphere);
-    return min(box, trouSphere);
+    return min(min(box, trouSphere), ray);
 }
 
 vec3 calcNormal(vec3 p)
@@ -126,6 +139,30 @@ float rayMarch(vec3 ro, vec3 rd, float start, float end)
         if(d < EPSILON || depth > end)break;
     }
     return depth;
+}
+
+float rayMarchLight(vec3 ro, vec3 rd, float start, float end, out vec3 outP)
+{
+    float depth = start;
+    float dMin = 1000000.0;
+
+    for(int i = 0; i < MAX_MARCHING_STEPS; i++)
+    {
+        vec3 p = ro + depth * rd;
+        float d = mapLight(p);
+        depth += d;
+        
+        if (d < dMin)
+        {
+            dMin = d;
+            outP = p;
+        }
+        //dMin = min(dMin, d);
+
+        if(d < EPSILON || depth > end)
+            break;
+    }
+    return dMin;
 }
 
 float softshadow( in vec3 ro, in vec3 rd, float mint, float maxt, float k )
@@ -163,6 +200,13 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
     rd = (uViewMatrix * vec4(rd, 0.0)).xyz;
 
     float d = rayMarch(ro, rd, MIN_DISTANCE, MAX_DISTANCE);
+    float att = 0.0;
+
+    
+    vec3 pLight = vec3(0.0);
+    float distToLightObject = rayMarchLight(ro, rd, MIN_DISTANCE, d, pLight);
+    att = 1.0 / (1.0 + distToLightObject * distToLightObject * 10.0);
+
     if(d > MAX_DISTANCE)
     {
         MaterialDifuseColor = vec3(0.0f);
@@ -176,7 +220,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
         vec3 H = normalize(L + V);
 
         float NoH = clamp(dot(n, H), 0., 1.);
-        float NoL = clamp(dot(n, L), 0., 1.);
+        float NoL = 0.0* clamp(dot(n, L), 0., 1.);
 
         specularIntensity = pow(clamp(NoH, 0., 1.), shininess);
 
@@ -185,7 +229,16 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
         float shadow = softshadow(p + n * EPSILON * 10.0, L, 0.0, 10.0, 10.0);
         col = (MaterialDifuseColor + vec3(specularIntensity)) * shadow;
 
+        vec3 LSelfIllum = normalize(pLight - p);
+        float selfIllumIntensity = clamp(dot(n, LSelfIllum), 0., 1.);
+
+        
+        float dToSelfIllum = mapLight(p);
+        float attSelfIllum = 1.0 / (0.2 + dToSelfIllum * dToSelfIllum);
+        col += vec3(0.2, 0.6, 1.0) * attSelfIllum * selfIllumIntensity;
+
     } 
+    col = mix(col, vec3(0.2, 0.6, 1.0), att * clamp(d * d * 0.05, 0.0, 1.0));
     
     fragColor = vec4(col, 1.0);
 }
