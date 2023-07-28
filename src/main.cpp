@@ -21,7 +21,7 @@ int main(int argc, char** argv)
 	Renderer renderer(window);
 
 	
-	s.PlayMusic("Audio/revision.wav");
+	s.PlayMusic("Audio/Evoke2023.mp3");
 
 	glm::vec3 origin, target;
 

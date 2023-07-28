@@ -1,1 +1,3 @@
-﻿  Revision2023.vcxproj -> C:\Users\tinti\OneDrive\Documents\DemoScene\revision-2023-demo\bin\Revision2023_Debug.exe
+﻿  main.cpp
+C:\Users\tinti\OneDrive\Documents\DemoScene\revision-2023-demo\src\main.cpp(53,38): warning C4244: '=' : conversion de 'float' en 'int', perte possible de données
+  Revision2023.vcxproj -> C:\Users\tinti\OneDrive\Documents\DemoScene\revision-2023-demo\bin\Revision2023_Debug.exe
