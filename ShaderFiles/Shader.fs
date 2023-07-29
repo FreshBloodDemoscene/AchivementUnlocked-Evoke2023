@@ -1,6 +1,9 @@
 #version 460 core
 out vec4 FragColor;
 
+
+#define PHI (sqrt(5)*0.5 + 0.5)
+
 layout(location = 0) uniform vec2 uScreenResolution;
 layout(location = 1) uniform float uTime;
 layout(location = 2) uniform vec3 ro;
@@ -36,6 +39,48 @@ float box;
 //    vec2 h = s * 0.5;
 //    return mod(p + h, s) - h;
 //}
+
+const vec3 GDFVectors[19] = vec3[](
+	normalize(vec3(1, 0, 0)),
+	normalize(vec3(0, 1, 0)),
+	normalize(vec3(0, 0, 1)),
+
+	normalize(vec3(1, 1, 1 )),
+	normalize(vec3(-1, 1, 1)),
+	normalize(vec3(1, -1, 1)),
+	normalize(vec3(1, 1, -1)),
+
+	normalize(vec3(0, 1, PHI+1)),
+	normalize(vec3(0, -1, PHI+1)),
+	normalize(vec3(PHI+1, 0, 1)),
+	normalize(vec3(-PHI-1, 0, 1)),
+	normalize(vec3(1, PHI+1, 0)),
+	normalize(vec3(-1, PHI+1, 0)),
+
+	normalize(vec3(0, PHI, 1)),
+	normalize(vec3(0, -PHI, 1)),
+	normalize(vec3(1, 0, PHI)),
+	normalize(vec3(-1, 0, PHI)),
+	normalize(vec3(PHI, 1, 0)),
+	normalize(vec3(-PHI, 1, 0))
+);
+
+
+float fGDF(vec3 p, float r, float e, int begin, int end) {
+	float d = 0;
+	for (int i = begin; i <= end; ++i)
+		d += pow(abs(dot(p, GDFVectors[i])), e);
+	return pow(d, 1/e) - r;
+}
+
+
+float fGDF(vec3 p, float r, int begin, int end) {
+	float d = 0;
+	for (int i = begin; i <= end; ++i)
+		d = max(d, abs(dot(p, GDFVectors[i])));
+	return d - r;
+}
+
 
 vec2 pMod2(inout vec2 p, vec2 size)
 {
@@ -100,6 +145,10 @@ float sdSegment(vec3 p, vec3 a, vec3 b)
     return length((ab*t + a) - p);
 }
 
+float sOctahedron(vec3 p, float r, float e) {
+	return fGDF(p, r, e, 3, 6);
+}
+
 float mapLight(vec3 p)
 {
    
@@ -143,14 +192,22 @@ float map(vec3 p)
     float floor = p.y;
     return min(floor, cyl);
     }
-    else
+    else if(sceneId < 2.0)
     {
     
-         p = rotateX(p,rotationObj.x);
+        p = rotateX(p,rotationObj.x);
         p = rotateY(p, rotationObj.y);
         p = rotateZ(p,rotationObj.z);
-    float cube = sdBox(p, vec3(1.0))-inflation;
+    float cube = sdBox(p, vec3(1.0))-inflation; 
     return cube;
+    }
+    else
+    {
+        p = rotateX(p,rotationObj.x);
+        p = rotateY(p, rotationObj.y);
+        p = rotateZ(p,rotationObj.z);
+        float octa = sOctahedron(p, 4, 1);
+        return octa;
     }
 }
 
