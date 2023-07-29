@@ -45,7 +45,6 @@ int main(int argc, char** argv)
 	float		sceneId;
 	float inflation;
 
-;
 	do
 	{
 		//need whole new file for this one for engine recreation
@@ -130,4 +129,14 @@ int main(int argc, char** argv)
 	} while (window.SwapBuffers());
 
 	return 0;
+}
+
+int CALLBACK WinMain(
+	HINSTANCE   hInstance,
+	HINSTANCE   hPrevInstance,
+	LPSTR       lpCmdLine,
+	int         nCmdShow
+)
+{
+	return main(0, nullptr);
 }

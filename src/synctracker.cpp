@@ -1,6 +1,8 @@
 #include <synctracker.h>
 #include <soundTrack.h>
 
+//#define SYNC_PLAYER
+
 #include <rocket/sync.h>
 
 #include <exception>

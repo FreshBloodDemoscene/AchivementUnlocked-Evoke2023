@@ -116,10 +116,10 @@ float mapLight(vec3 p)
         p = rotateY(p, rotationObj.y);
         p = rotateZ(p,rotationObj.z);
 
-        float ray1 = sdSegment(p, vec3(-1,1,1)*l, vec3(0));
-        float ray2 = sdSegment(p, vec3(1,1,1)*l, vec3(0));
-        float ray3 = sdSegment(p, vec3(1,1,-1)*l, vec3(0));
-        float ray4 = sdSegment(p, vec3(-1,1,-1)*l, vec3(0));
+        float ray1 = sdSegment(p, vec3(-1,1,1)*l, vec3(1,-1,-1)*l);
+        float ray2 = sdSegment(p, vec3(1,1,1)*l, vec3(-1,-1,-1)*l);
+        float ray3 = sdSegment(p, vec3(1,1,-1)*l, vec3(-1,-1,1)*l);
+        float ray4 = sdSegment(p, vec3(-1,1,-1)*l, vec3(1,-1,1)*l);
     
         float result = 1000.0;
         int isl = int(scene2laser);
