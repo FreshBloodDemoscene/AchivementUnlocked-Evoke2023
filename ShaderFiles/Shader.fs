@@ -7,6 +7,7 @@ layout(location = 2) uniform vec3 ro;
 layout(location = 3) uniform mat4 uViewMatrix;
 layout(location = 4) uniform vec3 LIGHT_COLOR;
 layout(location = 5) uniform int fullSquare;
+layout(location = 6 ) uniform float propagation;
 
 
 const int MAX_MARCHING_STEPS = 255;
@@ -15,7 +16,7 @@ const float MAX_DISTANCE = 100.0;
 const float EPSILON = 0.001;
 const vec3 MaterialAmbiantColor = vec3(0.1,0.1,0.1);
 
-vec3 LIGHT_POSITION;
+vec3 LIGHT_POSITION = vec3(0.0, 0.8, -5.0);
 float box;
 
 //vec2 dmMod2(vec2 p, vec2 s) 
@@ -73,6 +74,12 @@ float sdFloor(vec3 p)
     return p.y;// + sin(p.x * 10) * 0.1;
 }
 
+float sdCylinder(vec3 p, float r, float height) {
+	float d = length(p.xy) - r;
+	d = max(d, abs(p.z) - height);
+	return d;
+}
+
 float sdSegment(vec3 p, vec3 a, vec3 b)
 {
     vec3 ab = b - a;
@@ -83,37 +90,19 @@ float sdSegment(vec3 p, vec3 a, vec3 b)
 float mapLight(vec3 p)
 {
     float ray = sdSegment(p, vec3(0),vec3(5)) - 0.2;
-    return ray;
+
+    float SegmentIntro = sdSegment(p, vec3(-2, 0, -10.0), vec3(-2, 0, 10.0));
+    float SegmentIntro2 = sdSegment(p, vec3(2, 0, -10.0), vec3(2, 0, 10.0));
+    return min(SegmentIntro, SegmentIntro2);
 }
 
 float map(vec3 p)
 {
-    float sphere = sdSphere(p, 1.);
-     
-    vec3 p2 = p;
-    
-    vec2 cellSize = vec2(2.0);
-    vec2 cellId = pMod2(p2.xz, cellSize);
+    //float sphere = sdSphere(p, 1.);
+    float cyl = -sdCylinder(p, 2., 100.0);
+    float floor = p.y;
 
-    vec3 pp = rotateX(rotateY(rotateZ(p2-vec3(0.0, 2.0 + fract(0.5 * cellId.x), 0.0), uTime), uTime), uTime);
-
-    if(fullSquare == 0)
-    {
-        box = sdBox(p, vec3(0.5));
-    }
-    else
-    {
-        box = sdBox(pp, vec3(0.5));
-    }
-    
-    LIGHT_POSITION = vec3(cellSize * vec2(4., 1.), 5.0).xzy;
-
-    float ray = sdSegment(p, vec3(0),vec3(5));
-    
-    float sol = sdFloor(p);
-
-    float trouSphere = max(sol, -sphere);
-    return min(min(box, trouSphere), ray);
+    return min(floor, cyl);
 }
 
 vec3 calcNormal(vec3 p)
@@ -234,7 +223,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
 
         
         float dToSelfIllum = mapLight(p);
-        float attSelfIllum = 1.0 / (0.2 + dToSelfIllum * dToSelfIllum);
+        float attSelfIllum = 1.0 / (0.2 + dToSelfIllum * dToSelfIllum * propagation);
         col += vec3(0.2, 0.6, 1.0) * attSelfIllum * selfIllumIntensity;
 
     } 

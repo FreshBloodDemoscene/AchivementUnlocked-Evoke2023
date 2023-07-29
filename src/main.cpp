@@ -25,8 +25,10 @@ int main(int argc, char** argv)
 
 	glm::vec3 origin, target;
 
-	glm::vec3 color = glm::vec3(1.0f, 0.0f, 0.0f);
-	glm::vec3 light_Position(2, 2, 7);
+	glm::vec3	color = glm::vec3(1.0f, 0.0f, 0.0f);
+	glm::vec3	light_Position(2, 2, 7);
+
+	float		propagation = 10.0f;
 
 
 	int fullSquare = 0;
@@ -53,6 +55,11 @@ int main(int argc, char** argv)
 		fullSquare = syncTracker.FetchValue("fullSquare");
 
 		glProgramUniform1i(renderer.m_shader, 5, fullSquare);
+
+
+		propagation = syncTracker.FetchValue("propagation");
+
+		glProgramUniform1f(renderer.m_shader, 6, propagation);
 
 		//std::cout << ro.x << ro.y << ro.z << std::endl;
 		syncTracker.Update(s);
