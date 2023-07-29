@@ -11,6 +11,7 @@ layout(location = 6 ) uniform float propagation;
 layout(location = 7) uniform float scene2laser;
 layout(location = 8) uniform float sceneId;
 layout(location = 9) uniform vec3 rotationObj;
+layout(location = 10) uniform float inflation;
 
 layout(location = 15) uniform vec3 lpIntro;
 layout(location = 16) uniform vec3 lpIntro2;
@@ -140,7 +141,7 @@ float map(vec3 p)
     {
     
         p = rotateY(p, rotationObj.y);
-    float cube = sdBox(p, vec3(1.0));
+    float cube = sdBox(p, vec3(1.0))-inflation;
     return cube;
     }
 }
@@ -276,7 +277,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
         col += (FLASH_COLOR * selfIllumIntensity + vec3(specularIntensity)) * attSelfIllum;
 
     } 
-    //col = mix(col, FLASH_COLOR, att * clamp(d * d * 0.05, 0.0, 1.0));
+    col = mix(col, FLASH_COLOR, att * clamp(d * d * 0.05, 0.0, 1.0));
     
     fragColor = vec4(col, 1.0); 
 }

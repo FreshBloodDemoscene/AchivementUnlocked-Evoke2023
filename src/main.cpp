@@ -31,12 +31,15 @@ int main(int argc, char** argv)
 	glm::vec3 lpIntro, lpIntro2;
 
 	glm::vec3 flashColor;
+	
+	glm::vec3 rotationObj;
 
 	float		propagation = 10.0f;
 
 	float		scene2laser;
 	float		sceneId;
-	glm::vec3 rotationObj;
+	float inflation;
+	
 
 
 	int fullSquare = 0;
@@ -97,6 +100,9 @@ int main(int argc, char** argv)
 		flashColor.z = syncTracker.FetchValue("fColor:Z");
 
 		glProgramUniform3f(renderer.m_shader, 17, flashColor.x, flashColor.y, flashColor.z);
+
+		inflation = syncTracker.FetchValue("inflation");
+		glProgramUniform1f(renderer.m_shader, 10, inflation);
 
 		//std::cout << ro.x << ro.y << ro.z << std::endl;
 		syncTracker.Update(s);

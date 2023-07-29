@@ -1,3 +1,33 @@
-﻿  main.cpp
-C:\Users\qriga\Documents\GitHub\revision-2023-demo\src\main.cpp(63,38): warning C4244: '=' : conversion de 'float' en 'int', perte possible de données
-  Revision2023.vcxproj -> C:\Users\qriga\Documents\GitHub\revision-2023-demo\bin\Revision2023_Debug.exe
+﻿  file.cpp
+  main.cpp
+C:\Users\tinti\OneDrive\Documents\DemoScene\revision-2023-demo\src\main.cpp(66,38): warning C4244: '=' : conversion de 'float' en 'int', perte possible de données
+  renderer.cpp
+C:\Users\tinti\OneDrive\Documents\DemoScene\revision-2023-demo\src\renderer.cpp(61,18): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+  soundTrack.cpp
+C:\Users\tinti\OneDrive\Documents\DemoScene\revision-2023-demo\src\soundTrack.cpp(18,6): warning C4551: liste d'arguments manquante dans l'appel de fonction
+  synctracker.cpp
+C:\Users\tinti\OneDrive\Documents\DemoScene\revision-2023-demo\src\synctracker.cpp(58,24): warning C4244: 'return' : conversion de 'double' en 'float', perte possible de données
+  textloader.cpp
+  window.cpp
+  Génération de code en cours...
+  LINK : C:\Users\tinti\OneDrive\Documents\DemoScene\revision-2023-demo\bin\Revision2023_Debug.exe introuvable ou non généré par la dernière édition de liens incrémentielle ; édition de liens complète en cours
+sync-s-d.lib(device-c-8076f882bf60486028ccb28c74e662f5.obj) : warning LNK4099: PDB 'sync_ccpdb.pdb' n'a pu être trouvé avec 'sync-s-d.lib(device-c-8076f882bf60486028ccb28c74e662f5.obj)' ou sur 'C:\Users\tinti\OneDrive\Documents\DemoScene\revision-2023-demo\bin\sync_ccpdb.pdb' ; l'objet sera lié sans informations de débogage
+sync-s-d.lib(track-c-4b658b68bf604860e37191ad74e662f5.obj) : warning LNK4099: PDB 'sync_ccpdb.pdb' n'a pu être trouvé avec 'sync-s-d.lib(track-c-4b658b68bf604860e37191ad74e662f5.obj)' ou sur 'C:\Users\tinti\OneDrive\Documents\DemoScene\revision-2023-demo\bin\sync_ccpdb.pdb' ; l'objet sera lié sans informations de débogage
+glew32s.lib(glew.obj) : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'glew32s.lib(glew.obj)' ou sur 'C:\Users\tinti\OneDrive\Documents\DemoScene\revision-2023-demo\bin\vc120.pdb' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(input.obj) : warning LNK4099: PDB 'glfw3-s-d.pdb' n'a pu être trouvé avec 'glfw3-s-d.lib(input.obj)' ou sur 'C:\Users\tinti\OneDrive\Documents\DemoScene\revision-2023-demo\bin\glfw3-s-d.pdb' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(init.obj) : warning LNK4099: PDB 'glfw3-s-d.pdb' n'a pu être trouvé avec 'glfw3-s-d.lib(init.obj)' ou sur 'C:\Users\tinti\OneDrive\Documents\DemoScene\revision-2023-demo\bin\glfw3-s-d.pdb' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(monitor.obj) : warning LNK4099: PDB 'glfw3-s-d.pdb' n'a pu être trouvé avec 'glfw3-s-d.lib(monitor.obj)' ou sur 'C:\Users\tinti\OneDrive\Documents\DemoScene\revision-2023-demo\bin\glfw3-s-d.pdb' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(window.obj) : warning LNK4099: PDB 'glfw3-s-d.pdb' n'a pu être trouvé avec 'glfw3-s-d.lib(window.obj)' ou sur 'C:\Users\tinti\OneDrive\Documents\DemoScene\revision-2023-demo\bin\glfw3-s-d.pdb' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(context.obj) : warning LNK4099: PDB 'glfw3-s-d.pdb' n'a pu être trouvé avec 'glfw3-s-d.lib(context.obj)' ou sur 'C:\Users\tinti\OneDrive\Documents\DemoScene\revision-2023-demo\bin\glfw3-s-d.pdb' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(win32_window.obj) : warning LNK4099: PDB 'glfw3-s-d.pdb' n'a pu être trouvé avec 'glfw3-s-d.lib(win32_window.obj)' ou sur 'C:\Users\tinti\OneDrive\Documents\DemoScene\revision-2023-demo\bin\glfw3-s-d.pdb' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(win32_joystick.obj) : warning LNK4099: PDB 'glfw3-s-d.pdb' n'a pu être trouvé avec 'glfw3-s-d.lib(win32_joystick.obj)' ou sur 'C:\Users\tinti\OneDrive\Documents\DemoScene\revision-2023-demo\bin\glfw3-s-d.pdb' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(win32_time.obj) : warning LNK4099: PDB 'glfw3-s-d.pdb' n'a pu être trouvé avec 'glfw3-s-d.lib(win32_time.obj)' ou sur 'C:\Users\tinti\OneDrive\Documents\DemoScene\revision-2023-demo\bin\glfw3-s-d.pdb' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(win32_init.obj) : warning LNK4099: PDB 'glfw3-s-d.pdb' n'a pu être trouvé avec 'glfw3-s-d.lib(win32_init.obj)' ou sur 'C:\Users\tinti\OneDrive\Documents\DemoScene\revision-2023-demo\bin\glfw3-s-d.pdb' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(win32_monitor.obj) : warning LNK4099: PDB 'glfw3-s-d.pdb' n'a pu être trouvé avec 'glfw3-s-d.lib(win32_monitor.obj)' ou sur 'C:\Users\tinti\OneDrive\Documents\DemoScene\revision-2023-demo\bin\glfw3-s-d.pdb' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(win32_thread.obj) : warning LNK4099: PDB 'glfw3-s-d.pdb' n'a pu être trouvé avec 'glfw3-s-d.lib(win32_thread.obj)' ou sur 'C:\Users\tinti\OneDrive\Documents\DemoScene\revision-2023-demo\bin\glfw3-s-d.pdb' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(vulkan.obj) : warning LNK4099: PDB 'glfw3-s-d.pdb' n'a pu être trouvé avec 'glfw3-s-d.lib(vulkan.obj)' ou sur 'C:\Users\tinti\OneDrive\Documents\DemoScene\revision-2023-demo\bin\glfw3-s-d.pdb' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(wgl_context.obj) : warning LNK4099: PDB 'glfw3-s-d.pdb' n'a pu être trouvé avec 'glfw3-s-d.lib(wgl_context.obj)' ou sur 'C:\Users\tinti\OneDrive\Documents\DemoScene\revision-2023-demo\bin\glfw3-s-d.pdb' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(egl_context.obj) : warning LNK4099: PDB 'glfw3-s-d.pdb' n'a pu être trouvé avec 'glfw3-s-d.lib(egl_context.obj)' ou sur 'C:\Users\tinti\OneDrive\Documents\DemoScene\revision-2023-demo\bin\glfw3-s-d.pdb' ; l'objet sera lié sans informations de débogage
+glfw3-s-d.lib(osmesa_context.obj) : warning LNK4099: PDB 'glfw3-s-d.pdb' n'a pu être trouvé avec 'glfw3-s-d.lib(osmesa_context.obj)' ou sur 'C:\Users\tinti\OneDrive\Documents\DemoScene\revision-2023-demo\bin\glfw3-s-d.pdb' ; l'objet sera lié sans informations de débogage
+MSVCRTD.lib(initializers.obj) : warning LNK4098: conflit entre la bibliothèque par défaut 'libcmt.lib' et les autres bibliothèques ; utilisez /NODEFAULTLIB:library
+  Revision2023.vcxproj -> C:\Users\tinti\OneDrive\Documents\DemoScene\revision-2023-demo\bin\Revision2023_Debug.exe
