@@ -30,6 +30,9 @@ int main(int argc, char** argv)
 
 	float		propagation = 10.0f;
 
+	float		scene2laser;
+	float		sceneId;
+
 
 	int fullSquare = 0;
 ;
@@ -60,6 +63,12 @@ int main(int argc, char** argv)
 		propagation = syncTracker.FetchValue("propagation");
 
 		glProgramUniform1f(renderer.m_shader, 6, propagation);
+
+		scene2laser = syncTracker.FetchValue("scene2Laser");
+		glProgramUniform1f(renderer.m_shader, 7, scene2laser);
+
+		sceneId = syncTracker.FetchValue("sceneId");
+		glProgramUniform1f(renderer.m_shader, 8, sceneId);
 
 		//std::cout << ro.x << ro.y << ro.z << std::endl;
 		syncTracker.Update(s);
