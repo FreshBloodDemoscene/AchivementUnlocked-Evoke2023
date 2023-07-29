@@ -14,6 +14,7 @@ layout(location = 9) uniform vec3 rotationObj;
 
 layout(location = 15) uniform vec3 lpIntro;
 layout(location = 16) uniform vec3 lpIntro2;
+layout(location = 17) uniform vec3 FLASH_COLOR;
 
 
 const int MAX_MARCHING_STEPS = 255;
@@ -131,7 +132,7 @@ float map(vec3 p)
     //float sphere = sdSphere(p, 1.);
     if(sceneId < 1.0)
     {
-    float cyl = -sdCylinder(p, 2., 100.0);
+    float cyl = -sdCylinder(p, 2., 300.0); //chgmt taille couloir
     float floor = p.y;
     return min(floor, cyl);
     }
@@ -264,15 +265,20 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
         vec3 LSelfIllum = normalize(pLight - p);
         float selfIllumIntensity = clamp(dot(n, LSelfIllum), 0., 1.);
 
+        vec3 V = normalize(ro - p);
+        vec3 H = normalize(LSelfIllum + V);
+
+        float NoH = clamp(dot(n, H), 0., 1.);
+        float specularIntensity = pow(NoH, 8.0);
         
         float dToSelfIllum = mapLight(p);
         float attSelfIllum = 1.0 / (0.2 + dToSelfIllum * dToSelfIllum * propagation);
-        col += vec3(0.2, 0.6, 1.0) * attSelfIllum * selfIllumIntensity;
+        col += (FLASH_COLOR * selfIllumIntensity + vec3(specularIntensity)) * attSelfIllum;
 
     } 
-    col = mix(col, vec3(0.2, 0.6, 1.0), att * clamp(d * d * 0.05, 0.0, 1.0));
+    //col = mix(col, FLASH_COLOR, att * clamp(d * d * 0.05, 0.0, 1.0));
     
-    fragColor = vec4(col, 1.0);
+    fragColor = vec4(col, 1.0); 
 }
 
 void main()

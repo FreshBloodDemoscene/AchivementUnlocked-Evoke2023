@@ -30,6 +30,8 @@ int main(int argc, char** argv)
 
 	glm::vec3 lpIntro, lpIntro2;
 
+	glm::vec3 flashColor;
+
 	float		propagation = 10.0f;
 
 	float		scene2laser;
@@ -90,7 +92,11 @@ int main(int argc, char** argv)
 
 		glProgramUniform3f(renderer.m_shader, 16, lpIntro2.x, lpIntro2.y, lpIntro2.z);
 
+		flashColor.x = syncTracker.FetchValue("fColor:X");
+		flashColor.y = syncTracker.FetchValue("fColor:Y");
+		flashColor.z = syncTracker.FetchValue("fColor:Z");
 
+		glProgramUniform3f(renderer.m_shader, 17, flashColor.x, flashColor.y, flashColor.z);
 
 		//std::cout << ro.x << ro.y << ro.z << std::endl;
 		syncTracker.Update(s);
