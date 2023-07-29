@@ -85,22 +85,7 @@ float sdCylinder(vec3 p, float r, float height) {
 	d = max(d, abs(p.z) - height);
 	return d;
 }
-vec3 shadeWithLight(vec3 ro, vec3 p, vec3 n, vec3 lp, vec3 lc, float shininess)
-{
-    vec3 L = normalize(lp - p);
-    vec3 V = normalize(ro - p);
-    vec3 H = normalize(L + V);
 
-    float NoH = clamp(dot(n, H), 0., 1.);
-    float NoL = clamp(dot(n, L), 0., 1.);
-
-    float specularIntensity = pow(clamp(NoH, 0., 1.), shininess);
-
-    vec3 MaterialDifuseColor = NoL * lc;
-
-    float shadow = softshadow(p + n * EPSILON * 10.0, L, 0.0, 10.0, 10.0);
-    return (MaterialDifuseColor + vec3(specularIntensity)) * shadow;
-}
 
 float sdSegment(vec3 p, vec3 a, vec3 b)
 {
@@ -221,6 +206,23 @@ float softshadow( in vec3 ro, in vec3 rd, float mint, float maxt, float k )
         t += h;
     }
     return res;
+}
+
+vec3 shadeWithLight(vec3 ro, vec3 p, vec3 n, vec3 lp, vec3 lc, float shininess)
+{
+    vec3 L = normalize(lp - p);
+    vec3 V = normalize(ro - p);
+    vec3 H = normalize(L + V);
+
+    float NoH = clamp(dot(n, H), 0., 1.);
+    float NoL = clamp(dot(n, L), 0., 1.);
+
+    float specularIntensity = pow(clamp(NoH, 0., 1.), shininess);
+
+    vec3 MaterialDifuseColor = NoL * lc;
+
+    float shadow = softshadow(p + n * EPSILON * 10.0, L, 0.0, 10.0, 10.0);
+    return (MaterialDifuseColor + vec3(specularIntensity)) * shadow;
 }
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord)
