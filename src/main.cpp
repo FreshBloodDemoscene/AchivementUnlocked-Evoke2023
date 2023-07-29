@@ -28,10 +28,13 @@ int main(int argc, char** argv)
 	glm::vec3	color = glm::vec3(1.0f, 0.0f, 0.0f);
 	glm::vec3	light_Position(2, 2, 7);
 
+	glm::vec3 lpIntro, lpIntro2;
+
 	float		propagation = 10.0f;
 
 	float		scene2laser;
 	float		sceneId;
+	glm::vec3 rotationObj;
 
 
 	int fullSquare = 0;
@@ -69,6 +72,25 @@ int main(int argc, char** argv)
 
 		sceneId = syncTracker.FetchValue("sceneId");
 		glProgramUniform1f(renderer.m_shader, 8, sceneId);
+
+		rotationObj.x = syncTracker.FetchValue("rotationObj:x");
+		rotationObj.y = syncTracker.FetchValue("rotationObj:y");
+		rotationObj.z = syncTracker.FetchValue("rotationObj:z");
+		glProgramUniform3f(renderer.m_shader, 9, rotationObj.x, rotationObj.y, rotationObj.z);
+
+		lpIntro.x = syncTracker.FetchValue("lpIntro:X");
+		lpIntro.y = syncTracker.FetchValue("lpIntro:Y");
+		lpIntro.z = syncTracker.FetchValue("lpIntro:Z");
+
+		glProgramUniform3f(renderer.m_shader, 15, lpIntro.x, lpIntro.y, lpIntro.z);
+
+		lpIntro2.x = syncTracker.FetchValue("lpIntro2:X");
+		lpIntro2.y = syncTracker.FetchValue("lpIntro2:Y");
+		lpIntro2.z = syncTracker.FetchValue("lpIntro2:Z");
+
+		glProgramUniform3f(renderer.m_shader, 16, lpIntro2.x, lpIntro2.y, lpIntro2.z);
+
+
 
 		//std::cout << ro.x << ro.y << ro.z << std::endl;
 		syncTracker.Update(s);

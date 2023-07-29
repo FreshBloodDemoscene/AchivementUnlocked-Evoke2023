@@ -10,6 +10,10 @@ layout(location = 5) uniform int fullSquare;
 layout(location = 6 ) uniform float propagation;
 layout(location = 7) uniform float scene2laser;
 layout(location = 8) uniform float sceneId;
+layout(location = 9) uniform vec3 rotationObj;
+
+layout(location = 15) uniform vec3 lpIntro;
+layout(location = 16) uniform vec3 lpIntro2;
 
 
 const int MAX_MARCHING_STEPS = 255;
@@ -81,6 +85,22 @@ float sdCylinder(vec3 p, float r, float height) {
 	d = max(d, abs(p.z) - height);
 	return d;
 }
+vec3 shadeWithLight(vec3 ro, vec3 p, vec3 n, vec3 lp, vec3 lc, float shininess)
+{
+    vec3 L = normalize(lp - p);
+    vec3 V = normalize(ro - p);
+    vec3 H = normalize(L + V);
+
+    float NoH = clamp(dot(n, H), 0., 1.);
+    float NoL = clamp(dot(n, L), 0., 1.);
+
+    float specularIntensity = pow(clamp(NoH, 0., 1.), shininess);
+
+    vec3 MaterialDifuseColor = NoL * lc;
+
+    float shadow = softshadow(p + n * EPSILON * 10.0, L, 0.0, 10.0, 10.0);
+    return (MaterialDifuseColor + vec3(specularIntensity)) * shadow;
+}
 
 float sdSegment(vec3 p, vec3 a, vec3 b)
 {
@@ -94,34 +114,49 @@ float mapLight(vec3 p)
    
    if (sceneId < 1.0)
    {
-        float SegmentIntro = sdSegment(p, vec3(-2, 0, -10.0), vec3(-2, 0, 10.0));
-        float SegmentIntro2 = sdSegment(p, vec3(2, 0, -10.0), vec3(2, 0, 10.0));
-        return min(SegmentIntro, SegmentIntro2);
+      float plIntro = sdSphere(p - lpIntro, 0.);
+        float plIntro2 = sdSphere(p - lpIntro2, 0.);
+        return min(plIntro, plIntro2);
    }
    else
    {
         float l = 50.0;
+        p = rotateY(p, rotationObj.y);
 
-        float ray = sdSegment(p, vec3(-1,1,1)*l, vec3(0));
+        float ray1 = sdSegment(p, vec3(-1,1,1)*l, vec3(0));
         float ray2 = sdSegment(p, vec3(1,1,1)*l, vec3(0));
         float ray3 = sdSegment(p, vec3(1,1,-1)*l, vec3(0));
         float ray4 = sdSegment(p, vec3(-1,1,-1)*l, vec3(0));
     
-        float v1 = min(ray, ray2);
-        float v2 = min(v1, ray3);
-        float v3 = min(v2, ray4);
+        float result = 1000.0;
+        int isl = int(scene2laser);
+        if ((isl % 2)  > 0) result = min(result, ray1);
+        if ((isl % 4)  > 1) result = min(result, ray2);
+        if ((isl % 8)  > 3) result = min(result, ray3);
+        if ((isl % 16) > 7) result = min(result, ray4);
 
-        return v3;
+        return result;
+        
    }
+   
 }
 
 float map(vec3 p)
 {
     //float sphere = sdSphere(p, 1.);
+    if(sceneId < 1.0)
+    {
     float cyl = -sdCylinder(p, 2., 100.0);
     float floor = p.y;
-
     return min(floor, cyl);
+    }
+    else
+    {
+    
+        p = rotateY(p, rotationObj.y);
+    float cube = sdBox(p, vec3(1.0));
+    return cube;
+    }
 }
 
 vec3 calcNormal(vec3 p)
@@ -222,20 +257,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
     {
         vec3 p = ro + d * rd;
         vec3 n = calcNormal(p);
-        vec3 L = normalize(LIGHT_POSITION - p);
-
-        vec3 V = normalize(ro - p);
-        vec3 H = normalize(L + V);
-
-        float NoH = clamp(dot(n, H), 0., 1.);
-        float NoL = 0.0* clamp(dot(n, L), 0., 1.);
-
-        specularIntensity = pow(clamp(NoH, 0., 1.), shininess);
-
-        MaterialDifuseColor = NoL * LIGHT_COLOR;
-
-        float shadow = softshadow(p + n * EPSILON * 10.0, L, 0.0, 10.0, 10.0);
-        col = (MaterialDifuseColor + vec3(specularIntensity)) * shadow;
+       col += shadeWithLight(ro, p, n, LIGHT_POSITION, LIGHT_COLOR, 40.);
 
         vec3 LSelfIllum = normalize(pLight - p);
         float selfIllumIntensity = clamp(dot(n, LSelfIllum), 0., 1.);
