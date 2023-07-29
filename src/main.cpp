@@ -34,18 +34,22 @@ int main(int argc, char** argv)
 	
 	glm::vec3 rotationObj;
 
+	glm::vec3 cPosition;
+
+	glm::vec3 lPosition;
+	glm::vec3 lPosition2;
+
 	float		propagation = 10.0f;
 
 	float		scene2laser;
 	float		sceneId;
 	float inflation;
-	
 
-
-	int fullSquare = 0;
 ;
 	do
 	{
+		//need whole new file for this one for engine recreation
+
 		origin.x = syncTracker.FetchValue("origin:X");
 		origin.y = syncTracker.FetchValue("origin:Y");
 		origin.z = syncTracker.FetchValue("origin:Z");
@@ -62,11 +66,6 @@ int main(int argc, char** argv)
 		color.z = syncTracker.FetchValue("color:Z");
 
 		glProgramUniform3f(renderer.m_shader, 4, color.x, color.y, color.z);
-	
-		fullSquare = syncTracker.FetchValue("fullSquare");
-
-		glProgramUniform1i(renderer.m_shader, 5, fullSquare);
-
 
 		propagation = syncTracker.FetchValue("propagation");
 
@@ -103,6 +102,24 @@ int main(int argc, char** argv)
 
 		inflation = syncTracker.FetchValue("inflation");
 		glProgramUniform1f(renderer.m_shader, 10, inflation);
+
+		cPosition.x = syncTracker.FetchValue("cPosition:X");
+		cPosition.y = syncTracker.FetchValue("cPosition:Y");
+		cPosition.z = syncTracker.FetchValue("cPosition:Z");
+
+		glProgramUniform3f(renderer.m_shader, 11, cPosition.x, cPosition.y, cPosition.z);
+
+		lPosition.x = syncTracker.FetchValue("lPosition:X");
+		lPosition.y = syncTracker.FetchValue("lPosition:Y");
+		lPosition.z = syncTracker.FetchValue("lPosition:Z");
+
+		glProgramUniform3f(renderer.m_shader, 13, lPosition.x, lPosition.y, lPosition.z);
+		
+		lPosition2.x = syncTracker.FetchValue("lPosition2:X");
+		lPosition2.y = syncTracker.FetchValue("lPosition2:Y");
+		lPosition2.z = syncTracker.FetchValue("lPosition2:Z");
+
+		glProgramUniform3f(renderer.m_shader, 14, lPosition2.x, lPosition2.y, lPosition2.z);
 
 		//std::cout << ro.x << ro.y << ro.z << std::endl;
 		syncTracker.Update(s);

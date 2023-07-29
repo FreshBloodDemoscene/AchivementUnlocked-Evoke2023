@@ -6,13 +6,17 @@ layout(location = 1) uniform float uTime;
 layout(location = 2) uniform vec3 ro;
 layout(location = 3) uniform mat4 uViewMatrix;
 layout(location = 4) uniform vec3 LIGHT_COLOR;
-layout(location = 5) uniform int fullSquare;
+
 layout(location = 6 ) uniform float propagation;
 layout(location = 7) uniform float scene2laser;
 layout(location = 8) uniform float sceneId;
 layout(location = 9) uniform vec3 rotationObj;
 layout(location = 10) uniform float inflation;
+layout(location = 11) uniform vec3 cPosition;
 
+
+layout(location = 13) uniform vec3 lPosition;
+layout(location = 14) uniform vec3 lPosition2;
 layout(location = 15) uniform vec3 lpIntro;
 layout(location = 16) uniform vec3 lpIntro2;
 layout(location = 17) uniform vec3 FLASH_COLOR;
@@ -24,7 +28,7 @@ const float MAX_DISTANCE = 100.0;
 const float EPSILON = 0.001;
 const vec3 MaterialAmbiantColor = vec3(0.1,0.1,0.1);
 
-vec3 LIGHT_POSITION = vec3(0.0, 0.8, -5.0);
+vec3 LIGHT_POSITION = vec3(0.0, 0.8, 10.0);
 float box;
 
 //vec2 dmMod2(vec2 p, vec2 s) 
@@ -101,9 +105,9 @@ float mapLight(vec3 p)
    
    if (sceneId < 1.0)
    {
-      float plIntro = sdSphere(p - lpIntro, 0.);
-        float plIntro2 = sdSphere(p - lpIntro2, 0.);
-        return min(plIntro, plIntro2);
+      float plIntro = sdSphere(p - lPosition - lpIntro, 0.05);
+      float plIntro2 = sdSphere(p - lPosition2 - lpIntro2, 0.05);
+      return min(plIntro, plIntro2);
    }
    else
    {
@@ -133,7 +137,7 @@ float map(vec3 p)
     //float sphere = sdSphere(p, 1.);
     if(sceneId < 1.0)
     {
-    float cyl = -sdCylinder(p, 2., 300.0); //chgmt taille couloir
+    float cyl = -sdCylinder(p - cPosition, 2., 300.0); //chgmt taille couloir
     float floor = p.y;
     return min(floor, cyl);
     }

@@ -28,7 +28,7 @@ Window::Window(const glm::ivec2& size /* = glm::ivec2(kDEFAULT_WIDTH, kDEFAULT_H
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
 
-	m_window = glfwCreateWindow(size.x, size.y, "Revision2023", NULL, NULL);
+	m_window = glfwCreateWindow(size.x, size.y, "Achievement Unlocked - French Blood", NULL, NULL);
 
 	if (!m_window)
 	{
