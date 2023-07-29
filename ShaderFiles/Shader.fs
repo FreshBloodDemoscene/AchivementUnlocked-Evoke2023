@@ -8,6 +8,8 @@ layout(location = 3) uniform mat4 uViewMatrix;
 layout(location = 4) uniform vec3 LIGHT_COLOR;
 layout(location = 5) uniform int fullSquare;
 layout(location = 6 ) uniform float propagation;
+layout(location = 7) uniform float scene2laser;
+layout(location = 8) uniform float sceneId;
 
 
 const int MAX_MARCHING_STEPS = 255;
@@ -89,11 +91,28 @@ float sdSegment(vec3 p, vec3 a, vec3 b)
 
 float mapLight(vec3 p)
 {
-    float ray = sdSegment(p, vec3(0),vec3(5)) - 0.2;
+   
+   if (sceneId < 1.0)
+   {
+        float SegmentIntro = sdSegment(p, vec3(-2, 0, -10.0), vec3(-2, 0, 10.0));
+        float SegmentIntro2 = sdSegment(p, vec3(2, 0, -10.0), vec3(2, 0, 10.0));
+        return min(SegmentIntro, SegmentIntro2);
+   }
+   else
+   {
+        float l = 50.0;
 
-    float SegmentIntro = sdSegment(p, vec3(-2, 0, -10.0), vec3(-2, 0, 10.0));
-    float SegmentIntro2 = sdSegment(p, vec3(2, 0, -10.0), vec3(2, 0, 10.0));
-    return min(SegmentIntro, SegmentIntro2);
+        float ray = sdSegment(p, vec3(-1,1,1)*l, vec3(0));
+        float ray2 = sdSegment(p, vec3(1,1,1)*l, vec3(0));
+        float ray3 = sdSegment(p, vec3(1,1,-1)*l, vec3(0));
+        float ray4 = sdSegment(p, vec3(-1,1,-1)*l, vec3(0));
+    
+        float v1 = min(ray, ray2);
+        float v2 = min(v1, ray3);
+        float v3 = min(v2, ray4);
+
+        return v3;
+   }
 }
 
 float map(vec3 p)
