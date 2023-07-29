@@ -108,9 +108,7 @@ float mapLight(vec3 p)
    else
    {
         float l = 50.0;
-        p = rotateX(p,rotationObj.x);
         p = rotateY(p, rotationObj.y);
-        p = rotateZ(p,rotationObj.z);
 
         float ray1 = sdSegment(p, vec3(-1,1,1)*l, vec3(0));
         float ray2 = sdSegment(p, vec3(1,1,1)*l, vec3(0));
@@ -142,9 +140,7 @@ float map(vec3 p)
     else
     {
     
-        p = rotateX(p,rotationObj.x);
         p = rotateY(p, rotationObj.y);
-        p = rotateZ(p,rotationObj.z);
     float cube = sdBox(p, vec3(1.0))-inflation;
     return cube;
     }
