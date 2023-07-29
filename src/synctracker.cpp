@@ -1,15 +1,15 @@
 #include <synctracker.h>
 #include <soundTrack.h>
 
-//#define SYNC_PLAYER
+#define SYNC_PLAYER
 
 #include <rocket/sync.h>
 
 #include <exception>
 
-#ifndef SYNC_PLAYER
+//#ifndef SYNC_PLAYER
 #pragma comment(lib, "ws2_32.lib")
-#endif // SYNC_PLAYER
+//#endif // SYNC_PLAYER
 
 #ifndef NDEBUG
 # pragma comment(lib, "sync-s-d.lib")

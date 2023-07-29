@@ -9,13 +9,13 @@
 #include <GLFW/glfw3.h>
 
 
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb_image.h>
 
 class textLoader
 {
+	unsigned int texture;
 public:
 	void loadImage(const char* image_path, int width, int height, int nrChannels, int req_comp);
+	void Use(unsigned int unit);
 };
 
 

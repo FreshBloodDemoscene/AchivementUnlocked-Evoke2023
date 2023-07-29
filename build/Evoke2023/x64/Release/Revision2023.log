@@ -1,9 +1,9 @@
-﻿  main.cpp
+﻿  window.cpp
 MSVCRT.lib(initializers.obj) : warning LNK4098: conflit entre la bibliothèque par défaut 'libcmt.lib' et les autres bibliothèques ; utilisez /NODEFAULTLIB:library
   Génération de code en cours
-  3 of 659 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
-    1 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+  3 of 798 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    10 functions had inline decision re-evaluated but remain unchanged
   Fin de la génération du code
 sync-s.lib(device-c-8076f882bf60486028ccb28c74e662f5.obj) : warning LNK4099: PDB 'sync_ccpdb.pdb' n'a pu être trouvé avec 'sync-s.lib(device-c-8076f882bf60486028ccb28c74e662f5.obj)' ou sur 'C:\Users\qriga\Documents\GitHub\revision-2023-demo\bin\sync_ccpdb.pdb' ; l'objet sera lié sans informations de débogage
 sync-s.lib(track-c-4b658b68bf604860e37191ad74e662f5.obj) : warning LNK4099: PDB 'sync_ccpdb.pdb' n'a pu être trouvé avec 'sync-s.lib(track-c-4b658b68bf604860e37191ad74e662f5.obj)' ou sur 'C:\Users\qriga\Documents\GitHub\revision-2023-demo\bin\sync_ccpdb.pdb' ; l'objet sera lié sans informations de débogage

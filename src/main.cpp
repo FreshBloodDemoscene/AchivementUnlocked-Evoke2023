@@ -5,6 +5,7 @@
 #include <soundTrack.h>
 #include <synctracker.h>
 #include <file.h>
+#include <textloader.h>
 
 #define GLEW_STATIC
 #include <GL/glew.h>
@@ -19,9 +20,10 @@ int main(int argc, char** argv)
 	SoundTrack s;
 	SyncTracker syncTracker;
 	Renderer renderer(window);
+    textLoader tw, credits;
 
 	
-	s.PlayMusic("Audio/Evoke2023.mp3");
+	s.PlayMusic("Evoke2023.mp3");
 
 	glm::vec3 origin, target;
 
@@ -43,7 +45,13 @@ int main(int argc, char** argv)
 
 	float		scene2laser;
 	float		sceneId;
-	float inflation;
+	float		inflation;
+
+	float		UseTw = 0.0f;
+	float		UseCredits = 0.0f;
+
+	tw.loadImage("triggerWarning.png", 225, 225, 1, 0);
+	credits.loadImage("credits.png", 225, 225, 1, 0);
 
 	do
 	{
@@ -120,13 +128,22 @@ int main(int argc, char** argv)
 
 		glProgramUniform3f(renderer.m_shader, 14, lPosition2.x, lPosition2.y, lPosition2.z);
 
+		tw.Use(0);
+		credits.Use(1);
+
+		UseTw = syncTracker.FetchValue("UseTw");
+		UseCredits = syncTracker.FetchValue("UseCredits");
+
+		glProgramUniform1f(renderer.m_shader, 18, UseTw);
+		glProgramUniform1f(renderer.m_shader, 19, UseCredits);
+
 		//std::cout << ro.x << ro.y << ro.z << std::endl;
 		syncTracker.Update(s);
 		renderer.Render();
 		file.UpdateFile(renderer, window, float(s.CurrentTime()));
 
 
-	} while (window.SwapBuffers());
+	} while (window.SwapBuffers() && (SoundTrack::ms_IsPlaying(&s)));
 
 	return 0;
 }
