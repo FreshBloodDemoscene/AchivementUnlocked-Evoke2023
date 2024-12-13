@@ -3,8 +3,8 @@
 This demo was producted in two days during Evoke2023.
 We used C++ OpenGL for contextRendering and we used GLSL for shader coding.
 
-  - Check & comment the production on Pouet.net
-  - Watch the video version on Youtube
+  - Check & comment the production on [Pouet.net](https://www.pouet.net/prod.php?which=96989)
+  - Watch the video version on [Youtube](https://youtu.be/0qK6qoB-S_g?si=RAWUJvu-rDydbHul)
 
 ## CREDITS
 
@@ -20,4 +20,4 @@ We used C++ OpenGL for contextRendering and we used GLSL for shader coding.
 
 ## SEE MORE
 
-@Angar0Os Audio productions on SoundCloud
+@Angar0Os Audio productions on [SoundCloud](https://soundcloud.com/user-519993791)
