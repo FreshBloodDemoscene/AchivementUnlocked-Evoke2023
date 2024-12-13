@@ -9,13 +9,14 @@ We used C++ OpenGL for contextRendering and we used GLSL for shader coding.
 ## CREDITS
 
 @vmalvoisin --> Code (Visuals)
+
 @Angar0Os --> Code (Engine) :: Music
 
 ## HOW TO RUN IT ?
 
  - You need a PC runnning Windows10+
  - Unzip the file
- -  Run the .exe
+ - Run the .exe
 
 ## SEE MORE
 
